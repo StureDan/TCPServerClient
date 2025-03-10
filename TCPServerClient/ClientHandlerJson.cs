@@ -32,13 +32,19 @@ namespace TCPServerClient
                 {
                     case "Random":
                         Random random = new Random();
-                        writer.WriteLine($"{random.Next(request.Tal1, request.Tal2)}");
+                        string response = $"{random.Next(request.Tal1, request.Tal2)}";
+                        var responseJson = JsonSerializer.Serialize(new Request { Response = response });
+                        writer.WriteLine(responseJson);
                         break;
                     case "Add":
-                        writer.WriteLine($"{request.Tal1 + request.Tal2}");
+                        string resonseAdd = $"{request.Tal1 + request.Tal2}";
+                        var responseJsonAdd = JsonSerializer.Serialize(new Request { Response = resonseAdd });
+                        writer.WriteLine(responseJsonAdd);
                         break;
                     case "Subtract":
-                        writer.WriteLine($"{request.Tal1 - request.Tal2}");
+                        string responseSubtract = $"{request.Tal1 - request.Tal2}";
+                        var responseJsonSubtract = JsonSerializer.Serialize(new Request { Response = responseSubtract });
+                        writer.WriteLine(responseJsonSubtract);
                         break;
                     default:
                         error = "Invalid method";
@@ -55,7 +61,11 @@ namespace TCPServerClient
         public string Method { get; set; }
         public int Tal1 { get; set; }
         public int Tal2 { get; set; }
+        public string Response { get; set; }
+
     }
+
+    
 
 }
 

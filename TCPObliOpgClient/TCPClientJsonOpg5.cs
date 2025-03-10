@@ -43,7 +43,9 @@ namespace TCPObliOpgClient
                         var request = new { Method = command, Tal1 = int.Parse(numbers[0]), Tal2 = int.Parse(numbers[1]) };
                         string jsonRequest = JsonSerializer.Serialize(request);
                         writer.WriteLine(jsonRequest);
-                        Console.WriteLine("Server response: " + reader.ReadLine());
+                        string response = reader.ReadLine();
+                        var responseObj = JsonSerializer.Deserialize<Request>(response);
+                        Console.WriteLine("Server response: " + responseObj.Response);
 
                     }
 
@@ -62,6 +64,7 @@ namespace TCPObliOpgClient
             public string Method { get; set; }
             public int Tal1 { get; set; }
             public int Tal2 { get; set; }
+            public string Response { get; set; }
         }
     }
 }
